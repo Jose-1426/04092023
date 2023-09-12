@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Elementos de formulário</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%; 
+        }
+        
+        table, th, td {
+            border: 1px solid black;
+        }
+        
+        th, td {
+            padding: 4px;
+            text-align: left;
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        function processa() {
+            var prontuario, nome, email, data, periodo, extensao, niv, curso;
+            prontuario = document.frmDados.txtprontuario.value;
+            nome = document.frmDados.txtnome.value;
+            email = document.frmDados.txtemail.value;
+            curso = document.frmDados.lstcurso.options[document.frmDados.lstcurso.selectedIndex].text;
+
+            var periodoRadio = document.getElementsByName("radperiodo");
+            for (var i = 0; i < periodoRadio.length; i++) {
+                if (periodoRadio[i].checked) {
+                    periodo = periodoRadio[i].value === 'M' ? 'Matutino' : (periodoRadio[i].value === 'V' ? 'Vespertino' : 'Noturno');
+                    break;
+                }
+            }
+
+            data = document.frmDados.txtdata.value;
+            extensao = "";
+
+            var extensaoCheckboxes = document.getElementsByName("extensao");
+            for (var i = 0; i < extensaoCheckboxes.length; i++) {
+                if (extensaoCheckboxes[i].checked) {
+                    extensao += extensaoCheckboxes[i].value + ", ";
+                }
+            }
+            extensao = extensao.slice(0, -2);
+
+            niv = document.frmDados.niv.value;
+
+            var tabela = document.getElementById("tabelaResultado");
+            
+            tabela.innerHTML = "<tr><th>Campo</th><th>Valor</th></tr>";
+            tabela.innerHTML += "<tr><td>Prontuário</td><td>" + prontuario + "</td></tr>";
+            tabela.innerHTML += "<tr><td>Nome</td><td>" + nome + "</td></tr>";
+            tabela.innerHTML += "<tr><td>E-mail institucional</td><td>" + email + "</td></tr>";
+            tabela.innerHTML += "<tr><td>Curso</td><td>" + curso + "</td></tr>";
+            tabela.innerHTML += "<tr><td>Período</td><td>" + periodo + "</td></tr>";
+            tabela.innerHTML += "<tr><td>Data de ingresso</td><td>" + data + "</td></tr>";
+            tabela.innerHTML += "<tr><td>Extensão</td><td>" + extensao + "</td></tr>";
+            tabela.innerHTML += "<tr><td>Nível de satisfação</td><td>" + niv + "</td></tr>";
+        }
+    </script>
+</head>
+<body>
+    <form name="frmDados">
+        Prontuário: <input type="text" name="txtprontuario" value="Informe seu prontuário"><br>
+        Nome: <input type="text" name="txtnome" value="Informe o seu nome"><br>
+        E-mail institucional: <input type="email" name="txtemail" value="Informe@seuemail.aqui"><br>
+        Cursos: 
+        <select name="lstcurso">
+            <option value="CTA">Técnico em Automação Industrial</option>
+            <option value="CTI">Técnico em Informática</option>
+            <option value="CTE">Técnico em Eventos</option>
+            <option value="EJD">Educação de Joven e Adultos</option>
+            <option value="CSA">Tecnologia em Automação Industrial</option>
+            <option value="TUR">Tecnologia em Gestão de Turismo</option>
+            <option value="ADS">Tecnologia em Análise e Desenvolvimento de Sistemas</option>
+            <option value="LET">Licenciatura em Letras - Português </option>
+            <option value="LMA">Licenciatura em Matemática</option>
+            <option value="ECA">Engenharia de Controle e Automação</option>
+            <option value="TUR">Bacharelado em Turismo</option>
+        </select><br>
+        Período: 
+        <input type="radio" name="radperiodo" value="M" checked>Matutino
+        <input type="radio" name="radperiodo" value="V"> Vespertino
+        <input type="radio" name="radperiodo" value="N"> Noturno<br>
+        Data de ingresso: <input type="date" name="txtdata"><br>
+        Extensão:<br>
+        <input type="checkbox" name="extensao" value="Músicas">Músicas<br>
+        <input type="checkbox" name="extensao" value="Pintura">Pintura<br>
+        <input type="checkbox" name="extensao" value="Teatro">Teatro<br>
+        Nível de satisfação: <input type="range" name="niv" min="0" max="100"><br>
+        <input type="button" value="OK" onclick="processa();">
+        <input type="reset" value="Limpar"><br>
+    </form>
+
+    <table id="tabelaResultado"></table>
+</body>
+</html>
