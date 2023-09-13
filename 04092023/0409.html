@@ -18,6 +18,12 @@
             text-align: left;
             font-size: 14px;
         }
+        img{
+
+            width: 240px;
+            height: 280px;
+
+        }
     </style>
     <script>
         function processa() {
@@ -48,9 +54,8 @@
 
             niv = document.frmDados.niv.value;
 
-            var tabela = document.getElementById("tabelaResultado");
-            
-            tabela.innerHTML = "<tr><th>Campo</th><th>Valor</th></tr>";
+            var tabela = document.getElementById("tabelaResultado");       
+            tabela.innerHTML += '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/IFSP_Logo.jpg/640px-IFSP_Logo.jpg">';
             tabela.innerHTML += "<tr><td>Prontuário</td><td>" + prontuario + "</td></tr>";
             tabela.innerHTML += "<tr><td>Nome</td><td>" + nome + "</td></tr>";
             tabela.innerHTML += "<tr><td>E-mail institucional</td><td>" + email + "</td></tr>";
